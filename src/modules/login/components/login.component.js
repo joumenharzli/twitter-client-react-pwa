@@ -13,15 +13,19 @@ export class LoginComponent extends React.Component {
    * errors  : fields errors
    * touched : form touched
    */
-  state = { errors: {}, touched: true };
+  state = { errors: {}, touched: false };
 
   /**
    * Trigger when the form is submitted
    */
   onSubmit = event => {
     event.preventDefault();
-    console.log(event.target.username.value);
-    console.log(event.target.password.value);
+    const target = event.target;
+    const result = {
+      username: target.username.value,
+      password: target.password.value
+    };
+    console.log(result);
   };
 
   /**
@@ -59,7 +63,7 @@ export class LoginComponent extends React.Component {
    * @pram value      : value of the error
    */
   mutateErrorState(fieldName, value) {
-    const errors = { errors: {} };
+    const errors = this.state.errors;
     errors[fieldName] = value;
     this.setState(Object.assign(this.state, { errors: errors }));
   }
@@ -86,7 +90,7 @@ export class LoginComponent extends React.Component {
               errorText={
                 this.state.errors.username ? "This field is required" : null
               }
-              onChange={this.onChange}
+              onBlur={this.onChange}
             />
             <TextField
               type="password"
@@ -95,11 +99,11 @@ export class LoginComponent extends React.Component {
               errorText={
                 this.state.errors.password ? "This field is required" : null
               }
-              onChange={this.onChange}
+              onBlur={this.onChange}
             />
           </CardText>
 
-          <CardActions Style="text-align: right">
+          <CardActions Style={"text-align: right"}>
             <FlatButton
               label="Login"
               primary={true}
@@ -107,7 +111,7 @@ export class LoginComponent extends React.Component {
               disabled={
                 this.state.errors.username ||
                 this.state.errors.password ||
-                this.state.untouched ? (
+                !this.state.touched ? (
                   true
                 ) : (
                   false
