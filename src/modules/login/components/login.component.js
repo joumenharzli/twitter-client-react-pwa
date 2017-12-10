@@ -1,22 +1,32 @@
-/**
- * Login component
- * @author Joumen Harzli
- */
 import React from "react";
 
 import { Card, CardActions, CardTitle, CardText } from "material-ui/Card";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
 
+/**
+ * Login component
+ * @author Joumen Harzli
+ */
 export class LoginComponent extends React.Component {
+  /**
+   * errors  : fields errors
+   * touched : form touched
+   */
   state = { errors: {}, touched: true };
 
+  /**
+   * When the form is submitted
+   */
   onSubmit = event => {
     event.preventDefault();
     console.log(event.target.username.value);
     console.log(event.target.password.value);
   };
 
+  /**
+   * Hanlde fields changes
+   */
   onChange = event => {
     const target = event.target;
     if (target.value.length === 0) {
@@ -27,20 +37,36 @@ export class LoginComponent extends React.Component {
     this.markAsTouched();
   };
 
+  /**
+   * Add error to the field
+   * @param fieldName : name of the field 
+   */
   addError = fieldName => {
-    this.insertError(fieldName, "required");
+    this.mutateErrorState(fieldName, "required");
   };
 
+  /**
+   * Clear field error
+   * @param fieldName : name of the field 
+   */
   clearError = fieldName => {
-    this.insertError(fieldName, "");
+    this.mutateErrorState(fieldName, "");
   };
 
-  insertError(fieldName, value) {
+  /**
+   * Add or clear the error for the field
+   * @param fieldName : name of the field
+   * @pram value      : value of the error
+   */
+  mutateErrorState(fieldName, value) {
     const errors = { errors: {} };
     errors[fieldName] = value;
     this.setState(Object.assign(this.state, { errors: errors }));
   }
 
+  /**
+   * Mark the form as touched
+   */
   markAsTouched() {
     this.setState(Object.assign(this.state, { touched: true }));
   }
