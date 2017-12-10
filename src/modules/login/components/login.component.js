@@ -103,7 +103,7 @@ export class LoginComponent extends React.Component {
             />
           </CardText>
 
-          <CardActions Style={"text-align: right"}>
+          <CardActions style={{ textAlign: "right" }}>
             <FlatButton
               label="Login"
               primary={true}
