@@ -16,7 +16,7 @@ export class LoginComponent extends React.Component {
   state = { errors: {}, touched: true };
 
   /**
-   * When the form is submitted
+   * Trigger when the form is submitted
    */
   onSubmit = event => {
     event.preventDefault();
@@ -25,7 +25,7 @@ export class LoginComponent extends React.Component {
   };
 
   /**
-   * Hanlde fields changes
+   * Handle fields changes
    */
   onChange = event => {
     const target = event.target;
@@ -68,7 +68,9 @@ export class LoginComponent extends React.Component {
    * Mark the form as touched
    */
   markAsTouched() {
-    this.setState(Object.assign(this.state, { touched: true }));
+    if (!this.state.touched) {
+      this.setState(Object.assign(this.state, { touched: true }));
+    }
   }
 
   render() {
