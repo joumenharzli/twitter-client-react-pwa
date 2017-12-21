@@ -21,11 +21,11 @@ export class LoginComponent extends React.Component {
   onSubmit = event => {
     event.preventDefault();
     const target = event.target;
-    const result = {
+    const value = {
       username: target.username.value,
       password: target.password.value
     };
-    console.log(result);
+    this.props.onSubmit(value);
   };
 
   /**

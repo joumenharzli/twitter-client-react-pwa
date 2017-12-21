@@ -4,12 +4,21 @@
 
 import React from "react";
 import { LoginComponent } from "../components/login.component";
+import { LoginService } from "../services/login.service";
 
 export class LoginContainer extends React.Component {
-  cssProps = `
-  
-    
-  `;
+
+  constructor() {
+    super();
+    this.loginService = new LoginService();
+  }
+
+  handleFormSubmit = (value) => {
+    this.loginService.getRequestToken().subscribe((res)=>{
+      console.log(res);
+    },(err)=>alert(err));
+  }
+
   render() {
     return (
       <div
@@ -19,7 +28,7 @@ export class LoginContainer extends React.Component {
           alignItems: "center"
         }}
       >
-        <LoginComponent />
+        <LoginComponent onSubmit={this.handleFormSubmit} />
       </div>
     );
   }
